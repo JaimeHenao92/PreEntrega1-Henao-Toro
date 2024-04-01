@@ -1,0 +1,72 @@
+[
+         {
+         "id": 1,
+         "name": "Alitas Finas Hiervas 800gr",
+         "precio": "17000",
+         "category": "Congelado",
+         "img": "src/assets/Alas Finas Hiervas.png"
+         },
+
+        
+         {
+            "id":2,
+            "name":"Alitas Finas Picantes 800gr",
+            "precio":"17000",
+            "category": "Congelado",
+            "img" : "src/assets/Alas Picantes.png"
+    
+         },
+         {
+            "id":3,
+            "name":"Alitas Bbq 800gr",
+            "precio":"17000",
+            "category": "Congelado",
+            "img" : "src/assets/Alas BBQ.png"
+      
+         },
+         {
+            "id":4,
+            "name":"Arepollo 5ud",
+            "precio":"17000",
+            "category": "Congelado",
+            "img" : "src/assets/Arepollo.png"
+
+         },
+         {
+            "id":5,
+            "name":"Chuzo Bucanero x 10ud",
+            "precio":"17000",
+            "category": "Congelado",
+            "img" : "src/assets/Chuzo Bucanero.png"
+         },
+         {
+            "id":6,
+            "nombrnamee":"Alas Campecinas",
+            "precio":"9000 libra",
+            "category": "Refrigerado",
+            "img" : "src/assets/Ala Campesina.png"
+         },
+         {
+            "id":7,
+            "name":"Contramuslo",
+            "precio":"9000 libra",
+            "category": "Refrigerado",
+            "img" : "src/assets/Contramuslo.png"
+         },
+         {
+            "id":8,
+            "name":"Muslo",
+            "precio":"9000 libra",
+            "category": "Refrigerado",
+            "img" : "src/assets/Muslo.png"
+         },
+         {
+            "id":9,
+            "name":"Pechuga",
+            "precio":"14000 libra",
+            "category": "Refrigerado",
+            "img" : "src/assets/Pechuga.png"
+         }
+
+       
+]
