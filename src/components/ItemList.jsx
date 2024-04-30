@@ -2,6 +2,12 @@ import { Item } from "./item";
 
 
 export const ItemList = ({products}) => {
+    
 
-    return products.map(product => <Item key = {product.id} product = {product} />)
-};
+    return (
+    <div className="flex">
+        {products.map((product) => (
+        <Item key = {product.id} product = {product} />))}
+        </div>
+    );
+        }

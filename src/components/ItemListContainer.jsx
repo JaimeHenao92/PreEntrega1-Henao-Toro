@@ -1,36 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Container from "react-bootstrap/Container";
+import {getFirestore, getDocs, collection, query, where } from "firebase/firestore";
 import {ItemList} from "./ItemList";
-import data from "../data/products.json";
+import Container from 'react-bootstrap/Container';
 
 
+export const ItemListContainer = () => {
+    const [products, setProducts] = useState([]);
+    const { id } = useParams();
 
-export const ItemListContainer = ({greeting}) => {
-    const [products, setproducts]= useState ([]);
+    useEffect(() => {
+        const db = getFirestore();
+        let refCollection;
+        if (!id) refCollection = collection(db, 'Items');
+        else {
+            refCollection = query(collection(db, 'Items'), where('categoryId', '==', id));
+        }
 
-    const {id} = useParams();
-    
-    useEffect (() => { 
-        const get = new Promise ((resolve, reject) => {
-          setTimeout (() => resolve(data), 2000)
+        getDocs(refCollection).then((results) => {
+            setProducts(
+                results.docs.map((doc) => {
+                    return { id: doc.id, ...doc.data() };
+                })
+            );
         });
-
-        get.then ((data) => {
-            if (id) {
-                const filteredData = data.filter (d => d.category === id);
-
-                setproducts (filteredData);
-
-            } else{
-             setproducts(data);
-            }
-            });
-
     }, [id]);
-
-    return (<Container className="mt-4">
-     <ItemList products={products}/>
-    </Container>);
-    
+    return (
+        <Container className="mt-4">
+            <ItemList products={products} />
+        </Container>
+);
 }
+
+

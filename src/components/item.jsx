@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 
 export const Item = ({ product }) => { 
     return (
-<Card style={{ width: '18rem' }}>
+<Card style={{ width: '20rem' }}>
       <Card.Img variant="top" src={product.img}/>
       <Card.Body>
-        <Card.Title>{product.nombre}</Card.Title>
+        <Card.Title>{product.name}</Card.Title>
         <Card.Text>{product.precio}
         </Card.Text>
-        <Card.Text>{product.category}
+        <Card.Text>{product.categoryId}
         </Card.Text>
-       <Link to={`/item/${product.id}`}> <Button variant="primary">Go Somewhere</Button></Link>
+       <Link to={`/item/${product.id}`}> 
+       <Button variant="primary">Saber más!</Button>
+       </Link>
       </Card.Body>
     </Card>
     );
