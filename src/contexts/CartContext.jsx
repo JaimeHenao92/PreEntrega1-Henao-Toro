@@ -1,22 +1,43 @@
-import { createContext, useState } from "react";
-
+import { createContext, useState } from 'react';
+import context from 'react-bootstrap/esm/AccordionContext';
 
 export const cartContext = createContext();
 
-export const CartProvider = ({children}) => {
-    const [items, setItems] = useState ([ 
-        {id: "1", title: "Arepollo 5ud", quantify: 2, precio: 17000},
-        {id: "2", title: "Alitas Finas Picantes 800gr", quantify: 6, precio: 17000},
-        {id: "3", title: "Alitas Bbq 800gr", quantify: 3, precio: 17000},
-    ]);
-    
+export const CartProvider = ({ children }) => {
+    const [Items, setItems] = useState([]);
 
-    const clear = () => setItems ([]);
+    const clear = () => setItems([]);
 
-    const addItem = (item) => setItems((prev) => [...prev, item])
+    const addItem = (Item, quantity) => {
+        const exists = Items.some((i) => i.id === Item.id);
+
+        if (exists) {
+            const updateItems = Items.map((i) => {
+                if (i.id === item.id) {
+                    return {
+                        ...i,
+                        quantity: i.quantity + quantity,
+                    };
+                } else {
+                    return i;
+                }
+            });
+            setItems(updateItems);
+        } else {
+            setItems((prev) => {
+                return [...prev, { ...Item, quantity }];
+                
+            });
+        }
+    };
+
+    const removeItem = (id) => {
+        const filterItems = Items.filter ((Item) => Item.id !== id);
+        setItems(filterItems);
+
+    };
 
 
-    return (
-    <cartContext.Provider value ={{ addItem, clear, items }}>{children}
-    </cartContext.Provider>);
+
+    return <cartContext.Provider value={{ addItem, clear, Items, removeItem }}>{children}</cartContext.Provider>;
 };

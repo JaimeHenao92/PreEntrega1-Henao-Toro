@@ -22,7 +22,7 @@ export const ItemCount = ({onAdd, stock}) => {
             <mark onClick = { handleDecrease }>-</mark>
             <input value = {count} readOnly/>
             <mark onClick={handleIncrease}>+</mark>
-            <button on onClick={ handleAdd}>Agregar al carrito!</button>
+            <button onClick={ handleAdd}>Agregar al carrito!</button>
         </div>
     );
 

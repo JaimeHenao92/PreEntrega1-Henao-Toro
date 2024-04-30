@@ -7,6 +7,9 @@ import Container from 'react-bootstrap/Container';
 
 export const ItemListContainer = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
     const { id } = useParams();
 
     useEffect(() => {
@@ -17,14 +20,19 @@ export const ItemListContainer = () => {
             refCollection = query(collection(db, 'Items'), where('categoryId', '==', id));
         }
 
-        getDocs(refCollection).then((results) => {
+        getDocs(refCollection)
+        .then((results) => {
             setProducts(
                 results.docs.map((doc) => {
                     return { id: doc.id, ...doc.data() };
                 })
             );
-        });
+        }).finally(()=> setLoading (false));
     }, [id]);
+
+    if(loading) return <div>Loading</div>
+
+
     return (
         <Container className="mt-4">
             <ItemList products={products} />
