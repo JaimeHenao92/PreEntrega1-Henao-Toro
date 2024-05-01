@@ -1,0 +1,37 @@
+.informacion{
+   
+        text-align: center;
+        background-color: rgba(253, 147, 85, 0.411);
+        margin: 20px auto; /* Add space around the info section */
+        width: 80%; /* Adjust width as needed */
+        font-weight: bolder;
+        color: rgb(37, 114, 48);
+        padding: 20px; /* Add padding for spacing */
+        border: 1px solid #ccc; /* Add a subtle border */
+        border-radius: 5px; /* Add rounded corners */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      }
+      
+
+.btnComprar{
+    margin-top: 25px;
+  padding: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: rgb(37, 114, 48);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btnVaciar {
+    margin-top: 20px;
+    padding: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: rgb(187, 175, 64);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+
+}

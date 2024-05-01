@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import Swal from "sweetalert2"; 
 import Table from 'react-bootstrap/Table';
+import styles from"./Cart.module.css";
 
 
 const initialValues = {
@@ -95,12 +96,13 @@ export const Cart = () => {
         </tbody>
       </Table>
 
-      <button onClick={clear}>Vaciar</button>
+      <button className={styles.btnVaciar} onClick={clear}>Vaciar</button>
 
       <h3 className="total">Total: ${total}</h3>
 
-      <h2>Información</h2>
-      <form >
+      
+      <form className={styles.informacion} >
+        <h2>Información</h2>
         <div>
           <label>Nombre Completo</label>
           <input
@@ -129,12 +131,16 @@ export const Cart = () => {
             name="email"
             onChange={handleChange}
           />
-        </div>
+        </div> 
+        <button type="button" className={styles.btnComprar} onClick={handleOrder}>
+  Comprar
+</button>
+
+
+
       </form>
 
-      <button type="button" onClick={handleOrder}>
-        Comprar
-      </button>
+    
     </Container>
   );
 };
