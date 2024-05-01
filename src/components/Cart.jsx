@@ -2,12 +2,16 @@ import { useContext, useState } from "react";
 import { cartContext } from "../contexts/CartContext";
 import { Container } from "react-bootstrap";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import Swal from "sweetalert2"; 
 import Table from 'react-bootstrap/Table';
+
+
 const initialValues = {
   name: "",
   celular: "",
   email: "",
 };
+
 export const Cart = () => {
   const [buyer, setBuyer] = useState(initialValues);
   const { clear, Items, removeItem } = useContext(cartContext);
@@ -26,28 +30,50 @@ export const Cart = () => {
   const total = Items.reduce((acu, act) => act.precio * act.quantity, 0);
 
   const handleOrder = () => {
-    const order = {
-      buyer,
-      Items,
-      total,
-    };
+    const allFieldsFilled = Object.values(buyer).every((field) => field !== "");
 
-    const db = getFirestore();
-    const orderCollection = collection(db, "orders");
+    if (allFieldsFilled && Items.length > 0) {
+      const order = {
+        buyer,
+        Items,
+        total,
+      };
 
-    addDoc(orderCollection, order).then(({ id }) => {
-      if (id) {
-        alert("Su pedido: " + id + "ha sido completado!");
-      }
-    });
+      const db = getFirestore();
+      const orderCollection = collection(db, "orders");
+
+      addDoc(orderCollection, order).then(({ id }) => {
+        if (id) {
+          mostrarMensajeFinal(id); 
+        }
+      });
+    } else {
+      revisarDatos();
+    }
   };
+
+  function revisarDatos() {
+    Swal.fire({
+      title: "Revisar datos",
+      text: "Por favor, completa todos los campos antes de realizar el pedido.",
+      icon: "warning",
+    });
+  }
+
+  function mostrarMensajeFinal(orderId) {
+    Swal.fire({
+      title: "¡Su pedido: " + orderId + " ha sido completado!",
+      text: "Gracias por elegir nuestros servicios.",
+      icon: "success",
+    });
+  }
 
   return (
     <Container className="m4">
       <h1>PEDIDO</h1>
 
       <Table striped bordered hover>
-      <thead>
+        <thead>
           <tr>
             <th>Producto</th>
             <th>Cantidad</th>
@@ -67,12 +93,14 @@ export const Cart = () => {
             </tr>
           ))}
         </tbody>
-    </Table>
+      </Table>
 
       <button onClick={clear}>Vaciar</button>
 
+      <h3 className="total">Total: ${total}</h3>
+
       <h2>Información</h2>
-      <form>
+      <form >
         <div>
           <label>Nombre Completo</label>
           <input
