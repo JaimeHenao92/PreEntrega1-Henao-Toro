@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import styles from"./item.module.css";
+import { Container } from 'react-bootstrap';
 
 export const Item = ({ product }) => { 
     return (
+      <Container className={styles.Container}>
         <Card className={styles.Card}
         style={{ 
             width: '15rem',
@@ -20,6 +22,8 @@ export const Item = ({ product }) => {
                 </Link>
             </Card.Body>
         </Card>
+        
+        </Container>
     );
 };
 
