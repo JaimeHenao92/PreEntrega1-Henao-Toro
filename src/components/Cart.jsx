@@ -2,10 +2,9 @@ import { useContext, useState } from "react";
 import { cartContext } from "../contexts/CartContext";
 import { Container } from "react-bootstrap";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import Swal from "sweetalert2"; 
-import Table from 'react-bootstrap/Table';
-import styles from"./Cart.module.css";
-
+import Swal from "sweetalert2";
+import Table from "react-bootstrap/Table";
+import styles from "./Cart.module.css";
 
 const initialValues = {
   name: "",
@@ -28,7 +27,7 @@ export const Cart = () => {
     });
   };
 
-  const total = Items.reduce((acu, act) => act.precio * act.quantity, 0);
+  const total = Items.reduce((acu, act) => acu + (Number(act.precio) * act.quantity), 0);
 
   const handleOrder = () => {
     const allFieldsFilled = Object.values(buyer).every((field) => field !== "");
@@ -45,7 +44,8 @@ export const Cart = () => {
 
       addDoc(orderCollection, order).then(({ id }) => {
         if (id) {
-          mostrarMensajeFinal(id); 
+          mostrarMensajeFinal(id);
+          clear(); // Limpia el carrito después de la compra
         }
       });
     } else {
@@ -66,6 +66,11 @@ export const Cart = () => {
       title: "¡Su pedido: " + orderId + " ha sido completado!",
       text: "Gracias por elegir nuestros servicios.",
       icon: "success",
+      confirmButtonText: "Aceptar",
+      onClose: () => {
+        // Limpia el carrito después de cerrar el mensaje de confirmación
+        clear();
+      },
     });
   }
 
@@ -96,12 +101,13 @@ export const Cart = () => {
         </tbody>
       </Table>
 
-      <button className={styles.btnVaciar} onClick={clear}>Vaciar</button>
+      <button className={styles.btnVaciar} onClick={clear}>
+        Vaciar
+      </button>
 
       <h3 className="total">Total: ${total}</h3>
 
-      
-      <form className={styles.informacion} >
+      <form className={styles.informacion}>
         <h2>Información</h2>
         <div>
           <label>Nombre Completo</label>
@@ -131,16 +137,12 @@ export const Cart = () => {
             name="email"
             onChange={handleChange}
           />
-        </div> 
+        </div>
+
         <button type="button" className={styles.btnComprar} onClick={handleOrder}>
-  Comprar
-</button>
-
-
-
+          Comprar
+        </button>
       </form>
-
-    
     </Container>
   );
 };
